@@ -157,11 +157,11 @@ export default function App() {
     // --- Components ---
 
     const AppleVisuals = ({ count }) => {
-        if (count > 20) return null; // Too many to render cleanly
+        if (count > 20) return null;
         return (
-            <div className="flex flex-wrap justify-center gap-1 max-w-[150px] xl:max-w-[200px]">
+            <div className="flex flex-wrap justify-center gap-0.5 max-w-[80px]">
                 {Array.from({ length: count }).map((_, i) => (
-                    <svg key={i} viewBox="0 0 24 24" fill="#ef4444" className="w-8 h-8 xl:w-10 xl:h-10 drop-shadow-md">
+                    <svg key={i} viewBox="0 0 24 24" fill="#ef4444" className="w-4 h-4 drop-shadow-md">
                         <path d="M12 2C7.5 2 4 5.5 4 10c0 4.5 4 8 8 12 4-4 8-7.5 8-12 0-4.5-3.5-8-8-8zm-1-2c0 2 2 3 2 3s-1-2-1-3h-1z" />
                     </svg>
                 ))}
@@ -176,28 +176,28 @@ export default function App() {
         const borderColor = isP1 ? 'border-blue-200' : 'border-red-200';
 
         return (
-            <div className={`flex-1 flex flex-col justify-between p-4 lg:p-8 bg-white/50 backdrop-blur-sm rounded-3xl border-4 ${borderColor} m-4`}>
+            <div className={`flex-1 flex flex-col justify-between p-2 bg-white/50 backdrop-blur-sm rounded-xl border-2 ${borderColor} m-1`}>
                 {/* Name & Feedback */}
-                <div className="flex justify-between items-center mb-4 lg:mb-8">
-                    <h2 className={`text-3xl lg:text-4xl font-bold ${textColor}`}>{playerName}</h2>
-                    {state.feedback === 'correct' && <Check className="text-green-500 w-12 h-12 lg:w-16 lg:h-16 animate-bounce" />}
-                    {state.feedback === 'wrong' && <X className="text-red-500 w-12 h-12 lg:w-16 lg:h-16 animate-bounce" />}
+                <div className="flex justify-between items-center mb-1">
+                    <h2 className={`text-base font-bold ${textColor}`}>{playerName}</h2>
+                    {state.feedback === 'correct' && <Check className="text-green-500 w-5 h-5 animate-bounce" />}
+                    {state.feedback === 'wrong' && <X className="text-red-500 w-5 h-5 animate-bounce" />}
                 </div>
 
                 {/* Question Area */}
-                <div className="flex-1 flex flex-col items-center justify-center py-2 lg:py-4">
+                <div className="flex-1 flex flex-col items-center justify-center py-1">
                     {state.question && (
                         <div className="text-center">
                             {state.question.displayType === 'number' ? (
-                                <div className="text-6xl lg:text-7xl xl:text-8xl font-black text-gray-800 tracking-widest">
+                                <div className="text-2xl font-black text-gray-800 tracking-wide">
                                     {state.question.num1} {state.question.op} {state.question.num2} = ?
                                 </div>
                             ) : (
-                                <div className="flex items-center justify-center gap-4 lg:gap-6 opacity-90">
+                                <div className="flex items-center justify-center gap-2 opacity-90">
                                     <AppleVisuals count={state.question.num1} />
-                                    <span className="text-5xl lg:text-6xl text-gray-600 font-bold mx-1 lg:mx-2">{state.question.op}</span>
+                                    <span className="text-xl text-gray-600 font-bold mx-1">{state.question.op}</span>
                                     <AppleVisuals count={state.question.num2} />
-                                    <span className="text-5xl lg:text-6xl text-gray-600 font-bold mx-1 lg:mx-2">= ?</span>
+                                    <span className="text-xl text-gray-600 font-bold mx-1">= ?</span>
                                 </div>
                             )}
                         </div>
@@ -206,37 +206,37 @@ export default function App() {
 
                 {/* Input & Numpad */}
                 <div className="flex flex-col items-center mt-auto">
-                    <div className="bg-white rounded-2xl lg:rounded-3xl shadow-inner w-full max-w-sm lg:max-w-md h-24 lg:h-32 flex items-center justify-center mb-4 lg:mb-6 border-4 border-gray-200">
-                        <span className="text-6xl lg:text-7xl font-bold text-gray-800">
+                    <div className="bg-white rounded-lg shadow-inner w-full max-w-[180px] h-10 flex items-center justify-center mb-2 border-2 border-gray-200">
+                        <span className="text-2xl font-bold text-gray-800">
                             {state.input || '_'}
                         </span>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-2 lg:gap-4 w-full max-w-sm lg:max-w-md">
+                    <div className="grid grid-cols-3 gap-1 w-full max-w-[180px]">
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
                             <button
                                 key={num}
                                 onClick={() => handleInput(playerNum, num.toString())}
-                                className="bg-white text-gray-800 text-4xl lg:text-5xl font-bold py-4 lg:py-8 rounded-xl lg:rounded-2xl shadow-lg active:scale-95 transition-transform"
+                                className="bg-white text-gray-800 text-lg font-bold py-1.5 rounded-lg shadow active:scale-95 transition-transform"
                             >
                                 {num}
                             </button>
                         ))}
                         <button
                             onClick={() => handleInput(playerNum, 'clear')}
-                            className="bg-gray-200 text-gray-600 flex items-center justify-center rounded-xl lg:rounded-2xl shadow-lg active:scale-95 transition-transform"
+                            className="bg-gray-200 text-gray-600 flex items-center justify-center rounded-lg shadow active:scale-95 transition-transform py-1.5"
                         >
-                            <Delete className="w-8 h-8 lg:w-12 lg:h-12" />
+                            <Delete className="w-4 h-4" />
                         </button>
                         <button
                             onClick={() => handleInput(playerNum, '0')}
-                            className="bg-white text-gray-800 text-4xl lg:text-5xl font-bold py-4 lg:py-8 rounded-xl lg:rounded-2xl shadow-lg active:scale-95 transition-transform"
+                            className="bg-white text-gray-800 text-lg font-bold py-1.5 rounded-lg shadow active:scale-95 transition-transform"
                         >
                             0
                         </button>
                         <button
                             onClick={() => submitAnswer(playerNum)}
-                            className={`${btnColor} text-white text-3xl lg:text-4xl font-bold rounded-xl lg:rounded-2xl shadow-lg active:scale-95 transition-transform flex items-center justify-center`}
+                            className={`${btnColor} text-white text-base font-bold rounded-lg shadow active:scale-95 transition-transform flex items-center justify-center py-1.5`}
                         >
                             GO
                         </button>
@@ -247,13 +247,11 @@ export default function App() {
     };
 
     const RopeGraphic = () => {
-        // ropePosition goes from -5 to +5. Max translation shift.
         const translatePct = ropePosition * 5;
 
         return (
-            <div className="flex-1 w-full relative bg-white border-y-8 border-gray-300 flex items-center justify-center overflow-hidden">
-                {/* Center Line Marker */}
-                <div className="absolute w-2 h-full bg-red-500 opacity-20 z-0"></div>
+            <div className="h-[30vh] w-full relative bg-white border-y-4 border-gray-300 flex items-center justify-center overflow-hidden">
+                <div className="absolute w-1 h-full bg-red-500 opacity-20 z-0"></div>
 
                 <img
                     src="https://static.vecteezy.com/system/resources/thumbnails/007/109/567/small/children-playing-tug-of-war-game-free-vector.jpg"
@@ -272,34 +270,34 @@ export default function App() {
 
     if (gameState === 'menu') {
         return (
-            <div className="w-screen h-screen bg-sky-100 flex items-center justify-center p-8 font-sans">
-                <div className="bg-white rounded-3xl shadow-2xl p-12 w-full max-w-5xl flex flex-col items-center">
-                    <h1 className="text-7xl font-black text-gray-800 mb-12 flex items-center gap-6">
-                        <Trophy className="w-20 h-20 text-yellow-500" />
+            <div className="w-screen h-screen bg-sky-100 flex items-center justify-center p-4 font-sans">
+                <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-2xl flex flex-col items-center">
+                    <h1 className="text-3xl font-black text-gray-800 mb-6 flex items-center gap-3">
+                        <Trophy className="w-8 h-8 text-yellow-500" />
                         Tug of War Math
-                        <Trophy className="w-20 h-20 text-yellow-500" />
+                        <Trophy className="w-8 h-8 text-yellow-500" />
                     </h1>
 
-                    <div className="grid grid-cols-2 gap-16 w-full mb-12">
-                        <div className="flex flex-col gap-8">
+                    <div className="grid grid-cols-2 gap-6 w-full mb-6">
+                        <div className="flex flex-col gap-4">
                             <div>
-                                <label className="block text-3xl font-bold text-gray-700 mb-4">Left Player</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-1">Left Player</label>
                                 <input
                                     type="text"
                                     value={settings.p1Name}
                                     onChange={(e) => setSettings({ ...settings, p1Name: e.target.value })}
-                                    className="w-full text-4xl p-6 border-4 border-blue-200 rounded-2xl bg-blue-50 focus:outline-none focus:border-blue-500"
+                                    className="w-full text-base p-2 border-2 border-blue-200 rounded-lg bg-blue-50 focus:outline-none focus:border-blue-500"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-3xl font-bold text-gray-700 mb-4">Math Operations</label>
-                                <div className="flex gap-4">
+                                <label className="block text-sm font-bold text-gray-700 mb-1">Math Operations</label>
+                                <div className="flex gap-2">
                                     {OPERATIONS.map(op => (
                                         <button
                                             key={op}
                                             onClick={() => toggleOperation(op)}
-                                            className={`w-20 h-20 text-5xl font-bold rounded-2xl border-4 transition-colors ${settings.operations.includes(op)
+                                            className={`w-10 h-10 text-xl font-bold rounded-lg border-2 transition-colors ${settings.operations.includes(op)
                                                 ? 'bg-green-500 border-green-600 text-white'
                                                 : 'bg-gray-100 border-gray-300 text-gray-400'
                                                 }`}
@@ -311,24 +309,24 @@ export default function App() {
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-8">
+                        <div className="flex flex-col gap-4">
                             <div>
-                                <label className="block text-3xl font-bold text-gray-700 mb-4">Right Player</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-1">Right Player</label>
                                 <input
                                     type="text"
                                     value={settings.p2Name}
                                     onChange={(e) => setSettings({ ...settings, p2Name: e.target.value })}
-                                    className="w-full text-4xl p-6 border-4 border-red-200 rounded-2xl bg-red-50 focus:outline-none focus:border-red-500"
+                                    className="w-full text-base p-2 border-2 border-red-200 rounded-lg bg-red-50 focus:outline-none focus:border-red-500"
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-8">
+                            <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label className="block text-3xl font-bold text-gray-700 mb-4">Max Number</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-1">Max Number</label>
                                     <select
                                         value={settings.maxResult}
                                         onChange={(e) => setSettings({ ...settings, maxResult: parseInt(e.target.value) })}
-                                        className="w-full text-3xl p-6 border-4 border-gray-200 rounded-2xl bg-white"
+                                        className="w-full text-sm p-2 border-2 border-gray-200 rounded-lg bg-white"
                                     >
                                         <option value={10}>Up to 10</option>
                                         <option value={20}>Up to 20</option>
@@ -337,11 +335,11 @@ export default function App() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-3xl font-bold text-gray-700 mb-4">Timer (Seconds)</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-1">Timer (Seconds)</label>
                                     <select
                                         value={settings.timeLimit}
                                         onChange={(e) => setSettings({ ...settings, timeLimit: parseInt(e.target.value) })}
-                                        className="w-full text-3xl p-6 border-4 border-gray-200 rounded-2xl bg-white"
+                                        className="w-full text-sm p-2 border-2 border-gray-200 rounded-lg bg-white"
                                     >
                                         <option value={30}>30s</option>
                                         <option value={60}>60s</option>
@@ -353,22 +351,22 @@ export default function App() {
                         </div>
                     </div>
 
-                    <div className="w-full flex items-center justify-center gap-6 mb-12 bg-gray-50 p-6 rounded-2xl border-4 border-gray-100">
-                        <span className="text-3xl font-bold text-gray-700">Show Object Visuals (Apples)?</span>
+                    <div className="w-full flex items-center justify-center gap-3 mb-6 bg-gray-50 p-3 rounded-xl border-2 border-gray-100">
+                        <span className="text-sm font-bold text-gray-700">Show Object Visuals (Apples)?</span>
                         <button
                             onClick={() => setSettings({ ...settings, useObjects: !settings.useObjects })}
-                            className={`w-24 h-12 rounded-full relative transition-colors ${settings.useObjects ? 'bg-green-500' : 'bg-gray-300'}`}
+                            className={`w-12 h-6 rounded-full relative transition-colors ${settings.useObjects ? 'bg-green-500' : 'bg-gray-300'}`}
                         >
-                            <div className={`w-10 h-10 bg-white rounded-full absolute top-1 transition-all ${settings.useObjects ? 'left-13' : 'left-1'}`} style={{ left: settings.useObjects ? '3.25rem' : '0.25rem' }}></div>
+                            <div className={`w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all`} style={{ left: settings.useObjects ? '1.625rem' : '0.125rem' }}></div>
                         </button>
                     </div>
 
                     <button
                         onClick={startGame}
                         disabled={settings.operations.length === 0}
-                        className="bg-green-500 hover:bg-green-600 text-white text-6xl font-bold py-8 px-24 rounded-full shadow-2xl transition-transform active:scale-95 flex items-center gap-6 disabled:opacity-50"
+                        className="bg-green-500 hover:bg-green-600 text-white text-2xl font-bold py-3 px-10 rounded-full shadow-xl transition-transform active:scale-95 flex items-center gap-3 disabled:opacity-50"
                     >
-                        <Play className="w-16 h-16 fill-current" />
+                        <Play className="w-7 h-7 fill-current" />
                         START GAME
                     </button>
                 </div>
@@ -380,28 +378,28 @@ export default function App() {
         return (
             <div className="w-screen h-screen flex flex-col font-sans overflow-hidden bg-sky-50 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-100 to-sky-200">
                 {/* Top Bar */}
-                <div className="h-20 lg:h-24 bg-gray-800 flex items-center justify-between px-6 lg:px-12 shadow-lg z-30">
+                <div className="h-10 bg-gray-800 flex items-center justify-between px-4 shadow-lg z-30">
                     <button
                         onClick={() => setGameState('menu')}
-                        className="text-white hover:text-gray-300 p-2"
+                        className="text-white hover:text-gray-300 p-1"
                     >
-                        <Settings className="w-8 h-8 lg:w-12 lg:h-12" />
+                        <Settings className="w-5 h-5" />
                     </button>
 
-                    <div className="text-4xl lg:text-5xl font-mono font-bold text-yellow-400 tracking-wider">
+                    <div className="text-xl font-mono font-bold text-yellow-400 tracking-wider">
                         {settings.timeLimit > 0 ? (
                             `${Math.floor(timeLeft / 60)}:${(timeLeft % 60).toString().padStart(2, '0')}`
                         ) : '∞'}
                     </div>
 
-                    <div className="w-8 lg:w-12"></div> {/* Spacer for balance */}
+                    <div className="w-5"></div>
                 </div>
 
                 {/* The Centered Graphic Area */}
                 <RopeGraphic />
 
                 {/* Players Area */}
-                <div className="h-[55vh] lg:h-[45vh] min-h-[400px] flex justify-center items-stretch p-2 lg:p-4 gap-2 lg:gap-8">
+                <div className="flex-1 flex justify-center items-stretch p-1 gap-1">
                     <PlayerArea playerNum={1} state={p1State} playerName={settings.p1Name} />
                     <PlayerArea playerNum={2} state={p2State} playerName={settings.p2Name} />
                 </div>
@@ -411,31 +409,31 @@ export default function App() {
 
     if (gameState === 'gameover') {
         return (
-            <div className="w-screen h-screen bg-sky-100 flex items-center justify-center p-8 font-sans">
-                <div className="bg-white rounded-3xl shadow-2xl p-24 w-full max-w-4xl flex flex-col items-center text-center">
-                    <Trophy className="w-48 h-48 text-yellow-500 mb-12 animate-bounce" />
+            <div className="w-screen h-screen bg-sky-100 flex items-center justify-center p-4 font-sans">
+                <div className="bg-white rounded-2xl shadow-2xl p-10 w-full max-w-lg flex flex-col items-center text-center">
+                    <Trophy className="w-20 h-20 text-yellow-500 mb-4 animate-bounce" />
 
-                    <h1 className="text-8xl font-black text-gray-800 mb-8">
+                    <h1 className="text-3xl font-black text-gray-800 mb-3">
                         {winner === 'Tie' ? "It's a Tie!" : `${winner} Wins!`}
                     </h1>
 
-                    <p className="text-4xl text-gray-600 mb-16 font-bold">
+                    <p className="text-lg text-gray-600 mb-6 font-bold">
                         Great job pulling the rope!
                     </p>
 
-                    <div className="flex gap-8">
+                    <div className="flex gap-4">
                         <button
                             onClick={() => setGameState('menu')}
-                            className="bg-gray-200 hover:bg-gray-300 text-gray-800 text-5xl font-bold py-8 px-16 rounded-3xl shadow-lg transition-transform active:scale-95 flex items-center gap-4"
+                            className="bg-gray-200 hover:bg-gray-300 text-gray-800 text-xl font-bold py-3 px-6 rounded-xl shadow-lg transition-transform active:scale-95 flex items-center gap-2"
                         >
-                            <Settings className="w-12 h-12" />
+                            <Settings className="w-5 h-5" />
                             Menu
                         </button>
                         <button
                             onClick={startGame}
-                            className="bg-green-500 hover:bg-green-600 text-white text-5xl font-bold py-8 px-16 rounded-3xl shadow-lg transition-transform active:scale-95 flex items-center gap-4"
+                            className="bg-green-500 hover:bg-green-600 text-white text-xl font-bold py-3 px-6 rounded-xl shadow-lg transition-transform active:scale-95 flex items-center gap-2"
                         >
-                            <RotateCcw className="w-12 h-12" />
+                            <RotateCcw className="w-5 h-5" />
                             Play Again
                         </button>
                     </div>
